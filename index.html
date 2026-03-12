@@ -5,87 +5,140 @@
   <title>Portfolio - Aloïs Hartenberger</title>
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    /* NAVBAR */
+    nav {
+      background: rgba(0,0,0,0.8);
+      padding: 15px 0;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(5px);
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
       margin: 0;
       padding: 0;
-      background: #f5f5f5;
-      color: #222;
     }
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ff8800;
+    }
+
+    /* HEADER */
     header {
-      background: #222;
-      color: white;
-      padding: 40px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
+      padding: 0 20px;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
     }
+    header h1 {
+      font-size: 60px;
+      margin-bottom: 10px;
+      color: #ff8800;
+    }
+    header h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #ccc;
+    }
+    header p {
+      max-width: 700px;
+      font-size: 18px;
+      color: #aaa;
+    }
+
+    /* SECTIONS */
     section {
       max-width: 900px;
-      margin: 40px auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 80px auto;
+      padding: 40px;
+      background: #1a1a1a;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255,136,0,0.1);
     }
     h2 {
-      border-left: 5px solid #007bff;
+      color: #ff8800;
+      border-left: 5px solid #ff8800;
       padding-left: 10px;
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>Portfolio d'Aloïs Hartenberger</h1>
-  <p>BTS SIO SISR — Cybersécurité & Réseaux</p>
+<!-- NAVBAR -->
+<nav>
+  <ul>
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#stages">Stages</a></li>
+    <li><a href="#ctf">CTF</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
+<header id="accueil">
+  <h1>Aloïs Hartenberger</h1>
+  <h2>BTS SIO SISR — Cybersécurité & Réseaux</h2>
+  <p>Passionné par l’infrastructure IT, la cybersécurité, les réseaux et la supervision.  
+  Ce portfolio présente mes projets, mes stages, mes compétences et mes réalisations.</p>
 </header>
 
-<section>
-  <h2>Sommaire</h2>
-  <div style="display: flex; flex-wrap: wrap; gap: 15px;">
-    <a href="#stages" style="padding: 12px 20px; background: #007bff; color: white; border-radius: 8px; text-decoration: none;">Stages</a>
-    <a href="#hackathons" style="padding: 12px 20px; background: #28a745; color: white; border-radius: 8px; text-decoration: none;">Hackathons</a>
-    <a href="#ctf" style="padding: 12px 20px; background: #6f42c1; color: white; border-radius: 8px; text-decoration: none;">CTF</a>
-    <a href="#projets" style="padding: 12px 20px; background: #fd7e14; color: white; border-radius: 8px; text-decoration: none;">Projets</a>
-    <a href="#contact" style="padding: 12px 20px; background: #343a40; color: white; border-radius: 8px; text-decoration: none;">Contact</a>
-  </div>
+<!-- À PROPOS -->
+<section id="apropos">
+  <h2>À propos</h2>
+  <p>Étudiant en BTS SIO SISR, je me spécialise dans l’administration système, la cybersécurité et la supervision réseau.  
+  Je travaille régulièrement sur Linux, Windows Server, Centreon, SNMP, VLAN, routage et outils de sécurité.</p>
 </section>
 
-  <section id="stages">
+<!-- STAGES -->
+<section id="stages">
   <h2>Stages</h2>
   <p><strong>Entreprise :</strong> ArchiData</p>
-  <p><strong>Mission :</strong> Supervision réseau, SNMP, Centreon, configuration switch, documentation.</p>
-  <p><strong>Compétences développées :</strong> Linux, réseau, supervision, troubleshooting.</p>
+  <p><strong>Missions :</strong> Supervision Centreon, SNMP, configuration switch, documentation, troubleshooting.</p>
 </section>
 
-  <section id="hackathons">
-  <h2>Hackathons</h2>
-  <p>Participation à plusieurs hackathons orientés cybersécurité et infrastructure.</p>
+<!-- CTF -->
+<section id="ctf">
+  <h2>CTF & Hackathons</h2>
   <ul>
-    <li>Hackathon Cyber Campus 17 — Analyse réseau, exploitation, défense.</li>
-    <li>Hackathon CESI — Résolution d’épreuves techniques en équipe.</li>
+    <li>TryHackMe — Niveau intermédiaire</li>
+    <li>Root-Me — Web, réseau, stéganographie</li>
+    <li>Hackathon Cyber — Analyse réseau & exploitation</li>
   </ul>
 </section>
 
-
-<section>
-  <h2>Projet principal</h2>
-  <p><strong>Titre :</strong> Mise en place d’une supervision réseau sécurisée (Centreon + SNMP + VLAN)</p>
-  <p><strong>Objectifs :</strong> Superviser un switch, un serveur Linux et un Windows Server via SNMP, sécuriser les échanges, et créer un tableau de bord.</p>
-  <p><strong>Contenu détaillé :</strong> (tu ajouteras les captures et étapes ici)</p>
+<!-- PROJETS -->
+<section id="projets">
+  <h2>Projets</h2>
+  <p><strong>Supervision réseau sécurisée :</strong> Centreon + SNMP + VLAN</p>
+  <p><strong>Hardening Linux :</strong> SSH sécurisé, firewall, audit</p>
+  <p><strong>Analyse réseau :</strong> Wireshark, Nmap</p>
 </section>
 
-<section>
-  <h2>Compétences</h2>
-  <ul>
-    <li>Linux (Debian, Ubuntu, Kali)</li>
-    <li>Windows Server / Active Directory</li>
-    <li>Réseaux : VLAN, routage, firewall</li>
-    <li>Supervision : SNMP, Centreon</li>
-    <li>Cybersécurité : Hardening, analyse réseau, CTF</li>
-    <li>Outils : Nmap, Wireshark, Burp Suite, Git</li>
-  </ul>
-</section>
-
-<section>
+<!-- CONTACT -->
+<section id="contact">
   <h2>Contact</h2>
   <p>Email : ton-email</p>
   <p>LinkedIn : ton-lien</p>

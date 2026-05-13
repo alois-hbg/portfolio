@@ -2,492 +2,548 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio - Aloïs Hartenberger</title>
+  <title>Portfolio — Aloïs Hartenberger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --orange: #ff8800;
+      --orange-dim: rgba(255,136,0,0.15);
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #161616;
+      --border: rgba(255,136,0,0.2);
+      --text: #e8e8e8;
+      --muted: #888;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0d0d0d;
-      color: #fff;
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
     }
 
-    /* NAVBAR */
+    /* ── NAVBAR ── */
     nav {
-      background: rgba(0,0,0,0.8);
-      padding: 15px 0;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      backdrop-filter: blur(5px);
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin: 0;
-      padding: 0;
-    }
-    nav ul li a {
-      color: #fff;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-    nav ul li a:hover {
-      color: #ff8800;
-    }
+    .nav-logo { font-family: 'Space Mono', monospace; color: var(--orange); font-size: 14px; letter-spacing: 2px; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul li a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color .2s; }
+    nav ul li a:hover { color: var(--orange); }
 
-    /* HEADER */
+    /* ── HERO ── */
     header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      padding: 80px 20px 60px;
+      position: relative; overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255,136,0,0.07) 0%, transparent 70%);
+    }
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); border: 1px solid var(--border);
+      padding: 6px 16px; border-radius: 20px; margin-bottom: 30px;
     }
     header h1 {
-      font-size: 60px;
-      margin-bottom: 10px;
-      color: #ff8800;
+      font-size: clamp(48px, 8vw, 90px); font-weight: 800; line-height: 1;
+      color: #fff; margin-bottom: 16px;
     }
-    header h2 {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #ccc;
+    header h1 span { color: var(--orange); }
+    header h2 { font-size: clamp(16px, 2vw, 22px); font-weight: 400; color: var(--muted); margin-bottom: 24px; letter-spacing: 1px; }
+    header p { max-width: 580px; font-size: 16px; color: #aaa; line-height: 1.7; }
+    .hero-cta { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn {
+      padding: 12px 28px; border-radius: 6px; font-weight: 700; font-size: 14px;
+      text-decoration: none; letter-spacing: .5px; transition: all .2s; display: inline-block;
     }
-    header p {
-      max-width: 700px;
-      font-size: 18px;
-      color: #aaa;
-    }
+    .btn-primary { background: var(--orange); color: #000; }
+    .btn-primary:hover { background: #ff9e33; }
+    .btn-outline { border: 1px solid var(--border); color: var(--text); }
+    .btn-outline:hover { border-color: var(--orange); color: var(--orange); }
 
-    /* SECTIONS */
-    section {
-      max-width: 900px;
-      margin: 80px auto;
-      padding: 40px;
-      background: #1a1a1a;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(255,136,0,0.1);
+    /* ── SECTIONS GÉNÉRALES ── */
+    .section { max-width: 1000px; margin: 0 auto; padding: 100px 24px; }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 12px;
     }
-    h2 {
-      color: #ff8800;
-      border-left: 5px solid #ff8800;
-      padding-left: 10px;
+    .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; color: #fff; margin-bottom: 48px; }
+    hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ── ABOUT ── */
+    .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 32px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px;
+    }
+    .card h3 { font-size: 18px; font-weight: 700; color: var(--orange); margin-bottom: 6px; }
+    .card p { color: var(--muted); font-size: 14px; line-height: 1.7; margin-bottom: 10px; }
+    .stat-row { display: flex; gap: 24px; margin: 20px 0; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-n { font-size: 28px; font-weight: 800; color: var(--orange); display: block; }
+    .stat-l { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+    .info-line { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); margin: 6px 0; }
+
+    /* ── COMPÉTENCES ── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .skill-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+    .skill-card h3 { color: var(--orange); font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+    .skill-card ul { list-style: none; }
+    .skill-card ul li {
+      font-size: 13px; color: #bbb; padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-left: 14px; position: relative; line-height: 1.5;
+    }
+    .skill-card ul li::before { content: '›'; position: absolute; left: 0; color: var(--orange); }
+
+    /* ── RÉALISATIONS (tableau de synthèse) ── */
+    .real-tabs { display: flex; gap: 8px; margin-bottom: 32px; flex-wrap: wrap; }
+    .tab-btn {
+      padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: 700;
+      border: 1px solid var(--border); background: transparent; color: var(--muted);
+      cursor: pointer; transition: all .2s; font-family: 'Syne', sans-serif;
+    }
+    .tab-btn.active, .tab-btn:hover { background: var(--orange); border-color: var(--orange); color: #000; }
+    .real-panel { display: none; }
+    .real-panel.active { display: block; }
+    .real-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .real-table th {
+      background: var(--surface2); color: var(--orange); font-size: 11px;
+      letter-spacing: 1px; text-transform: uppercase; padding: 12px 14px;
+      text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .real-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #ccc; vertical-align: top; }
+    .real-table tr:hover td { background: rgba(255,136,0,0.04); }
+    .badge {
+      display: inline-block; width: 20px; height: 20px; border-radius: 4px;
+      background: var(--orange); text-align: center; line-height: 20px;
+      font-size: 11px; color: #000; font-weight: 700; margin: 2px;
+    }
+    .comp-cell { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    /* ── STAGES / PROJETS ── */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; transition: border-color .2s, transform .2s;
+    }
+    .project-card:hover { border-color: var(--orange); transform: translateY(-3px); }
+    .project-img { width: 100%; height: 160px; object-fit: cover; display: block; filter: grayscale(30%) brightness(.85); }
+    .project-body { padding: 22px; }
+    .project-tag {
+      font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 8px; display: block;
+    }
+    .project-body h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .project-body p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 18px; }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--orange); text-decoration: none; font-size: 13px; font-weight: 700;
+      border: 1px solid var(--border); padding: 8px 16px; border-radius: 6px; transition: all .2s;
+    }
+    .project-link:hover { background: var(--orange); color: #000; border-color: var(--orange); }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .contact-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 22px; display: flex; align-items: center; gap: 14px;
+    }
+    .contact-icon { font-size: 24px; }
+    .contact-info span { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .contact-info a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; }
+    .contact-info a:hover { color: var(--orange); }
+
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; }
+      nav ul { gap: 14px; }
+      nav { padding: 0 16px; }
     }
   </style>
 </head>
-
 <body>
 
 <!-- NAVBAR -->
 <nav>
+  <span class="nav-logo">AH/</span>
   <ul>
     <li><a href="#accueil">Accueil</a></li>
     <li><a href="#apropos">À propos</a></li>
-    <li><a href="#formation">formation</a></li>
-    <li><a href="#compétences">Compétences</a></li>
-    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#realisations">Réalisations</a></li>
+    <li><a href="#projets">Stages & Projets</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HEADER -->
+<!-- HERO -->
 <header id="accueil">
-  <h1>Aloïs Hartenberger</h1>
-  <h2>BTS SIO SISR — Cybersécurité & Réseaux</h2>
-  <p>Passionné par l’infrastructure IT, la cybersécurité, les réseaux et la supervision.  
-  Ce portfolio présente mes projets, mes stages, mes compétences et mes réalisations.</p>
+  <div class="hero-tag">BTS SIO · Option SISR · Session 2026</div>
+  <h1>Aloïs<br><span>Hartenberger</span></h1>
+  <h2>Cybersécurité · Réseaux · Infrastructure IT</h2>
+  <p>Passionné par l'administration systèmes & réseaux, la cybersécurité et la supervision. Ce portfolio présente mes réalisations en formation et en entreprise.</p>
+  <div class="hero-cta">
+    <a href="CV.pdf" class="btn btn-primary">📄 Télécharger mon CV</a>
+    <a href="#realisations" class="btn btn-outline">Voir mes réalisations</a>
+  </div>
 </header>
 
+<hr class="divider">
+
 <!-- À PROPOS -->
-<section id="apropos" style="
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  align-items: flex-start;
-">
-
-  <!-- COLONNE GAUCHE -->
-  <div style="
-    flex: 1;
-    min-width: 280px;
-    background: #141414;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(255,136,0,0.1);
-  ">
-    <h2 style="color:#ff8800;">Aloïs Hartenberger</h2>
-    <p>Étudiant en BTS SIO SISR</p>
-
-    <p>📍 France</p>
-    <p>📧 hartenbergeralois528@gmail.com</p>
-    <p>🔗 github.com/ton-github</p>
-
-    <div style="margin-top: 25px;">
-      <p><strong>2</strong> années d'études</p>
-      <p><strong>2</strong> projets / labs</p>
-      <p><strong>2</strong> expériences pro</p>
-      <p><strong>3</strong> mois de stage</p>
+<section id="apropos" class="section">
+  <p class="section-label">01 / Profil</p>
+  <h2 class="section-title">À propos de moi</h2>
+  <div class="about-grid">
+    <!-- carte gauche -->
+    <div class="card">
+      <h3>Aloïs Hartenberger</h3>
+      <p>Étudiant en BTS SIO SISR<br>Lycée Maurice Merleau-Ponty</p>
+      <div class="info-line">📍 France</div>
+      <div class="info-line">📧 hartenbergeralois528@gmail.com</div>
+      <div class="info-line">🔗 github.com/ton-github</div>
+      <div class="stat-row">
+        <div class="stat"><span class="stat-n">2</span><span class="stat-l">Années</span></div>
+        <div class="stat"><span class="stat-n">2</span><span class="stat-l">Stages</span></div>
+        <div class="stat"><span class="stat-n">5+</span><span class="stat-l">Projets</span></div>
+      </div>
+      <a href="CV.pdf" class="btn btn-primary" style="margin-top:8px;">📄 Mon CV</a>
     </div>
-
-    <a href="CV.pdf" style="
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #ff8800;
-      color: #000;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-    ">📄 Télécharger mon CV</a>
+    <!-- carte droite -->
+    <div class="card">
+      <h3>Qui suis-je ?</h3>
+      <p>Je suis étudiant en <strong>BTS SIO option SISR</strong> au lycée Maurice Merleau-Ponty, passionné par l'infrastructure IT, la cybersécurité et l'administration réseau. J'aime comprendre, construire, sécuriser et optimiser des environnements techniques, que ce soit sur Linux, Windows Server ou des équipements réseau.</p>
+      <p>Mon objectif est de devenir <strong>administrateur systèmes & réseaux</strong>, puis d'évoluer vers un rôle orienté <strong>cybersécurité Red Team</strong>. Je suis rigoureux, logique, autonome et j'adore résoudre des problèmes techniques.</p>
+      <div style="display:flex; gap:32px; margin-top:16px; flex-wrap:wrap;">
+        <div>
+          <h3 style="font-size:14px; margin-bottom:8px;">Points forts</h3>
+          <ul style="list-style:none;">
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Autonomie</li>
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Rigueur</li>
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Esprit d'équipe</li>
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Curiosité technique</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:14px; margin-bottom:8px;">Centres d'intérêt</h3>
+          <ul style="list-style:none;">
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Cybersécurité & CTF</li>
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Infrastructure IT</li>
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Virtualisation & supervision</li>
+            <li style="font-size:13px; color:#bbb; margin-bottom:4px;">→ Labs techniques</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <!-- COLONNE DROITE -->
-  <div style="
-    flex: 2;
-    min-width: 300px;
-    background: #141414;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(255,136,0,0.1);
-  ">
-    <h2 style="color:#ff8800;">Qui suis‑je ?</h2>
-    <p>
-      Je suis étudiant en <strong>BTS SIO option SISR</strong>,
-      passionné par l’infrastructure IT, la cybersécurité et l’administration réseau.
-      J’aime comprendre, construire, sécuriser et optimiser des environnements techniques,
-      que ce soit sur Linux, Windows Server ou des équipements réseau.
-    </p>
-
-    <p>
-      Mon objectif est de devenir <strong>administrateur systèmes & réseaux</strong>,
-      puis d’évoluer vers un rôle orienté <strong>cybersécurité Red Team</strong>.
-      Je suis rigoureux, logique, autonome et j’adore résoudre des problèmes techniques.
-    </p>
-
-    <h3 style="color:#ff8800; margin-top: 25px;">Points forts</h3>
-    <ul>
-      <li>Autonomie</li>
-      <li>Rigueur</li>
-      <li>Esprit d'équipe</li>
-      <li>Capacité d'adaptation</li>
-      <li>Curiosité technique</li>
-    </ul>
-
-    <h3 style="color:#ff8800; margin-top: 25px;">Centres d'intérêt</h3>
-    <ul>
-      <li>Cybersécurité (CTF, analyse réseau, hardening)</li>
-      <li>Nouvelles technologies</li>
-      <li>Infrastructure IT</li>
-      <li>Virtualisation & supervision</li>
-      <li>Labs techniques & projets perso</li>
-    </ul>
-  </div>
-
 </section>
 
-<!-- Formation -->
-<section id="bts" style="
-  margin-top: 80px;
-  background: #141414;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255,136,0,0.1);
-">
+<hr class="divider">
 
-  <h2 style="color:#ff8800; text-align:center; margin-bottom:30px;">
-    BTS SIO – Services Informatiques aux Organisations
-  </h2>
-
-  <p style="text-align:center; color:#ccc; max-width:800px; margin:auto;">
-    Formation professionnalisante de niveau Bac+2 orientée informatique, offrant une double compétence
-    en <strong>infrastructure</strong> et en <strong>développement</strong>, avec une spécialisation en 2ᵉ année.
-  </p>
-
-  <!-- COMPÉTENCES COMMUNES -->
-  <div style="
-    margin-top:40px;
-    background:#1a1a1a;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(255,136,0,0.1);
-  ">
-    <h3 style="color:#ff8800;">Compétences communes</h3>
-    <ul style="line-height:1.8;">
-      <li><strong>Support & assistance :</strong> gestion du parc, résolution d’incidents, accompagnement utilisateurs</li>
-      <li><strong>Cybersécurité :</strong> protection des données, sécurisation des équipements, bonnes pratiques</li>
-      <li><strong>Gestion de projet :</strong> analyse des besoins, documentation, travail en équipe</li>
-    </ul>
-  </div>
-
-  <!-- DOUBLE COLONNE SISR / SLAM -->
-  <div style="
-    display:flex;
-    flex-wrap:wrap;
-    gap:30px;
-    margin-top:40px;
-  ">
-
-    <!-- SISR -->
-    <div style="
-      flex:1;
-      min-width:280px;
-      background:#1a1a1a;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(255,136,0,0.1);
-    ">
-      <h3 style="color:#ff8800;">Option SISR</h3>
-      <p style="color:#ccc;">Solutions d’Infrastructure, Systèmes & Réseaux</p>
-
-      <h4 style="color:#ff8800; margin-top:20px;">Compétences techniques</h4>
-      <ul style="line-height:1.8;">
-        <li>Administration Windows & Linux</li>
-        <li>Virtualisation (VMware, Proxmox)</li>
-        <li>Réseaux TCP/IP, VLAN, routage</li>
-        <li>Supervision (Centreon, SNMP)</li>
-      </ul>
-
-      <h4 style="color:#ff8800; margin-top:20px;">Services & sécurité</h4>
-      <ul style="line-height:1.8;">
-        <li>Active Directory</li>
-        <li>Pare-feu & VPN</li>
-        <li>Hardening systèmes</li>
-      </ul>
-
-      <h4 style="color:#ff8800; margin-top:20px;">Débouchés</h4>
-      <ul style="line-height:1.8;">
-        <li>Administrateur systèmes & réseaux</li>
-        <li>Technicien support / exploitation</li>
-        <li>Responsable infrastructure</li>
-        <li>Consultant cybersécurité</li>
-      </ul>
-    </div>
-
-    <!-- SLAM -->
-    <div style="
-      flex:1;
-      min-width:280px;
-      background:#1a1a1a;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(255,136,0,0.1);
-    ">
-      <h3 style="color:#ff8800;">Option SLAM</h3>
-      <p style="color:#ccc;">Solutions Logicielles & Applications Métiers</p>
-
-      <h4 style="color:#ff8800; margin-top:20px;">Compétences techniques</h4>
-      <ul style="line-height:1.8;">
-        <li>Développement Web & mobile</li>
-        <li>Bases de données SQL / NoSQL</li>
-        <li>Programmation objet</li>
-      </ul>
-
-      <h4 style="color:#ff8800; margin-top:20px;">Technologies</h4>
-      <ul style="line-height:1.8;">
-        <li>Java, C#, Python</li>
-        <li>HTML, CSS, JavaScript</li>
-        <li>React, Angular</li>
-      </ul>
-
-      <h4 style="color:#ff8800; margin-top:20px;">Débouchés</h4>
-      <ul style="line-height:1.8;">
-        <li>Développeur Web / mobile</li>
-        <li>Analyste programmeur</li>
-        <li>Chef de projet junior</li>
-      </ul>
-    </div>
-
-  </div>
-
-<section id="competences" style="
-  margin-top: 80px;
-  background: #141414;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255,136,0,0.1);
-">
-
-  <h2 style="color:#ff8800; text-align:center; margin-bottom:30px;">
-    Compétences techniques
-  </h2>
-
-  <!-- 3 BLOCS PRINCIPAUX -->
-  <div style="display:flex; flex-wrap:wrap; gap:30px;">
-
-    <!-- SUPPORT & SERVICES -->
-    <div style="
-      flex:1;
-      min-width:280px;
-      background:#1a1a1a;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(255,136,0,0.1);
-    ">
-      <h3 style="color:#ff8800;">Support & Services IT</h3>
-      <ul style="line-height:1.8;">
-        <li>Windows 10 / 11 — installation, déploiement, durcissement</li>
+<!-- COMPÉTENCES -->
+<section id="competences" class="section">
+  <p class="section-label">02 / Savoir-faire</p>
+  <h2 class="section-title">Compétences techniques</h2>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>Support & Services IT</h3>
+      <ul>
+        <li>Windows 10/11 — installation, déploiement, durcissement</li>
         <li>Windows Server — AD, DNS, DHCP, GPO</li>
-        <li>Linux (Debian, Ubuntu) — services, firewall, environnement isolé</li>
+        <li>Linux (Debian, Ubuntu) — services, firewall</li>
         <li>GLPI — gestion de parc, tickets, inventaire</li>
-        <li>Supervision — Centreon, SNMP, OID, monitoring réseau</li>
+        <li>Supervision — Centreon, SNMP, OID, MeshCentral</li>
       </ul>
     </div>
-
-    <!-- ADMIN SYSTEMES & RÉSEAUX -->
-    <div style="
-      flex:1;
-      min-width:280px;
-      background:#1a1a1a;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(255,136,0,0.1);
-    ">
-      <h3 style="color:#ff8800;">Administration systèmes & réseaux</h3>
-      <ul style="line-height:1.8;">
+    <div class="skill-card">
+      <h3>Systèmes & Réseaux</h3>
+      <ul>
         <li>Proxmox — virtualisation, snapshots, clusters</li>
         <li>VMware / VirtualBox — environnements Windows & Linux</li>
         <li>Cisco — VLAN, routage, Packet Tracer, IOS</li>
-        <li>DNS — zones, résolution interne/externe</li>
-        <li>DHCP — configuration Windows & Debian</li>
+        <li>DNS / DHCP — configuration Windows & Debian</li>
         <li>MySQL — requêtes SQL, gestion utilisateurs</li>
       </ul>
     </div>
-
-    <!-- CYBERSÉCURITÉ -->
-    <div style="
-      flex:1;
-      min-width:280px;
-      background:#1a1a1a;
-      padding:25px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(255,136,0,0.1);
-    ">
-      <h3 style="color:#ff8800;">Cybersécurité</h3>
-      <ul style="line-height:1.8;">
+    <div class="skill-card">
+      <h3>Cybersécurité</h3>
+      <ul>
         <li>Wireshark — analyse de paquets, filtrage, protocoles</li>
-        <li>Kali Linux — pentesting, vulnérabilités, environnement isolé</li>
-        <li>Pare-feu — Netfilter / iptables</li>
-        <li>VPN — configuration, tunnel sécurisé</li>
-        <li>CTF — TryHackMe, Root-Me (web, réseau, stéganographie)</li>
+        <li>Kali Linux — pentesting, vulnérabilités</li>
+        <li>OWASP ZAP, SonarQube, VirusTotal</li>
+        <li>Wazuh — supervision SIEM, alertes</li>
+        <li>CTF — TryHackMe, Root-Me, CESI La Rochelle</li>
       </ul>
     </div>
-
   </div>
-
 </section>
 
-<!-- PROJETS -->
-<section id="projets" style="
-  margin-top: 80px;
-  padding: 40px;
-  background: #141414;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(255,136,0,0.1);
-">
+<hr class="divider">
 
-  <h2 style="color:#ff8800; text-align:center; margin-bottom:40px;">
-    Mes stages, projets & expériences
-  </h2>
+<!-- RÉALISATIONS (tableau de synthèse) -->
+<section id="realisations" class="section">
+  <p class="section-label">03 / Tableau de synthèse E5</p>
+  <h2 class="section-title">Réalisations professionnelles</h2>
 
-  <div style="
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-  ">
+  <div class="real-tabs">
+    <button class="tab-btn active" onclick="showTab('formation')">En formation</button>
+    <button class="tab-btn" onclick="showTab('stage1')">Stage 1 — MSI</button>
+    <button class="tab-btn" onclick="showTab('stage2')">Stage 2 — Archidata</button>
+  </div>
+
+  <!-- Légende compétences -->
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; font-size:12px; color:var(--muted);">
+    <span><span class="badge">G</span> Gérer patrimoine</span>
+    <span><span class="badge">I</span> Incidents & assistance</span>
+    <span><span class="badge">P</span> Présence en ligne</span>
+    <span><span class="badge">T</span> Travailler en mode projet</span>
+    <span><span class="badge">S</span> Mise à disposition service</span>
+    <span><span class="badge">D</span> Développement professionnel</span>
+  </div>
+
+  <!-- FORMATION -->
+  <div class="real-panel active" id="tab-formation">
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th>Réalisation</th>
+          <th>Période</th>
+          <th>Compétences</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Déploiement serveur de messagerie interne (Postfix + Dovecot + Thunderbird) — rapport technique v2.0</td>
+          <td>01/09/25 au 05/05/26</td>
+          <td><div class="comp-cell"><span class="badge">I</span><span class="badge">S</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Supervision et gestion de parc avec MeshCentral</td>
+          <td>01/01/26 au 12/05/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">I</span><span class="badge">T</span><span class="badge">S</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Hackathon Hack4Scaria Airbus-Renault — Rochefort</td>
+          <td>14/03/25 au 15/03/25</td>
+          <td><div class="comp-cell"><span class="badge">T</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>CTF CESI La Rochelle</td>
+          <td>02/2026</td>
+          <td><div class="comp-cell"><span class="badge">T</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Création et gestion de l'identité professionnelle LinkedIn</td>
+          <td>2024 au 2026</td>
+          <td><div class="comp-cell"><span class="badge">P</span><span class="badge">D</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STAGE 1 -->
+  <div class="real-panel" id="tab-stage1">
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th>Réalisation</th>
+          <th>Période</th>
+          <th>Compétences</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Intégration équipe infrastructure réseau et déplacement Pôle Emploi Cenon</td>
+          <td>19/05/25 au 25/05/25</td>
+          <td><div class="comp-cell"><span class="badge">I</span><span class="badge">T</span><span class="badge">S</span></div></td>
+        </tr>
+        <tr>
+          <td>Découverte de la cybersécurité de l'entreprise</td>
+          <td>26/05/25 au 30/05/25</td>
+          <td><div class="comp-cell"><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Intervention terrain chez ID Logistiques — remplacement de switches (2 entrepôts Carrefour, Cestas)</td>
+          <td>02/06/25 au 06/06/25</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">I</span><span class="badge">T</span><span class="badge">S</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Réunion Cyber Campus Bordeaux — présentation équipements Fortinet et WiFi 7</td>
+          <td>16/06/25 au 20/06/25</td>
+          <td><div class="comp-cell"><span class="badge">P</span><span class="badge">S</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Intervention Pôle Emploi Bègles + préparation certification</td>
+          <td>23/06/25 au 30/06/25</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">I</span><span class="badge">P</span><span class="badge">D</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STAGE 2 -->
+  <div class="real-panel" id="tab-stage2">
+    <table class="real-table">
+      <thead>
+        <tr>
+          <th>Réalisation</th>
+          <th>Période</th>
+          <th>Compétences</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Prise en main de l'environnement Archidata et outil ClickUp</td>
+          <td>23/02/26 au 27/02/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Structuration des données techniques — fichier Excel termes réseaux</td>
+          <td>02/03/26 au 06/03/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Analyse de sécurité et tests de vulnérabilité (OWASP ZAP, SonarQube, VirusTotal, campagne phishing)</td>
+          <td>09/03/26 au 13/03/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">I</span><span class="badge">T</span></div></td>
+        </tr>
+        <tr>
+          <td>Maintenance et mise à jour des systèmes (Service Pack, maintenance préventive/corrective)</td>
+          <td>16/03/26 au 20/03/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">I</span><span class="badge">S</span></div></td>
+        </tr>
+        <tr>
+          <td>Création de supports de formation et documentation technique (ETS, résultats Pentest)</td>
+          <td>23/03/26 au 27/03/26</td>
+          <td><div class="comp-cell"><span class="badge">T</span><span class="badge">S</span><span class="badge">D</span></div></td>
+        </tr>
+        <tr>
+          <td>Supervision Wazuh et test de phishing</td>
+          <td>30/03/26 au 06/04/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">I</span><span class="badge">T</span><span class="badge">S</span></div></td>
+        </tr>
+        <tr>
+          <td>Formation aux normes ISO 27001 et SOC 2 — sensibilisation aux référentiels de sécurité et conformité</td>
+          <td>02/04/26</td>
+          <td><div class="comp-cell"><span class="badge">G</span><span class="badge">D</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- STAGES & PROJETS -->
+<section id="projets" class="section">
+  <p class="section-label">04 / Expériences</p>
+  <h2 class="section-title">Stages, projets & expériences</h2>
+  <div class="projects-grid">
 
     <!-- STAGE 1 -->
-    <div style="
-      background:#1a1a1a;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 0 15px rgba(255,136,0,0.1);
-      transition:0.3s;
-    ">
-      <img src="https://picsum.photos/600/300?random=21" style="width:100%; height:180px; object-fit:cover;">
-      <div style="padding:20px;">
-        <h3 style="color:#ff8800;">Stage 1 — (Titre à remplir)</h3>
-        <p style="color:#ccc;">
-          Écris ici la description de ton premier stage : missions, outils, compétences, contexte, etc.
-        </p>
-        <a href="stage1.html" style="color:#ff8800; text-decoration:none; font-weight:bold;">Détails</a>
-
+    <div class="project-card">
+      <img src="https://picsum.photos/600/300?random=21" class="project-img" alt="Stage MSI">
+      <div class="project-body">
+        <span class="project-tag">Stage 1 · Mai–Juin 2025</span>
+        <h3>MSI — Infrastructure Réseau</h3>
+        <p>Intégration dans une équipe réseau, interventions terrain chez Pôle Emploi et ID Logistiques (remplacement de switches), découverte cybersécurité, réunion Cyber Campus Bordeaux.</p>
+        <a href="stage1.html" class="project-link">Voir le détail →</a>
       </div>
     </div>
 
     <!-- STAGE 2 -->
-    <div style="
-      background:#1a1a1a;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 0 15px rgba(255,136,0,0.1);
-      transition:0.3s;
-    ">
-      <img src="https://picsum.photos/600/300?random=22" style="width:100%; height:180px; object-fit:cover;">
-      <div style="padding:20px;">
-        <h3 style="color:#ff8800;">Stage 2 — (Titre à remplir)</h3>
-        <p style="color:#ccc;">
-          Écris ici la description de ton deuxième stage : administration, sécurité, réseau, etc.
-        </p>
-        <a href="#" style="color:#ff8800; text-decoration:none; font-weight:bold;">Détails</a>
+    <div class="project-card">
+      <img src="https://picsum.photos/600/300?random=22" class="project-img" alt="Stage Archidata">
+      <div class="project-body">
+        <span class="project-tag">Stage 2 · Fév–Avr 2026</span>
+        <h3>Archidata — Cybersécurité & SI</h3>
+        <p>Tests de vulnérabilité (OWASP ZAP, SonarQube), supervision Wazuh, campagne phishing, maintenance systèmes, formation ISO 27001 / SOC 2.</p>
+        <a href="stage2.html" class="project-link">Voir le détail →</a>
       </div>
     </div>
 
     <!-- HACKATHON -->
-    <div style="
-      background:#1a1a1a;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 0 15px rgba(255,136,0,0.1);
-      transition:0.3s;
-    ">
-      <img src="https://picsum.photos/600/300?random=23" style="width:100%; height:180px; object-fit:cover;">
-      <div style="padding:20px;">
-        <h3 style="color:#ff8800;">Hackathon — (Nom / thème)</h3>
-        <p style="color:#ccc;">
-          Écris ici ton expérience du hackathon : équipe, durée, défis, rôle, technologies, résultats.
-        </p>
-        <a href="#" style="color:#ff8800; text-decoration:none; font-weight:bold;">Voir le projet</a>
+    <div class="project-card">
+      <img src="https://picsum.photos/600/300?random=23" class="project-img" alt="Hackathon">
+      <div class="project-body">
+        <span class="project-tag">Hackathon · Mars 2025</span>
+        <h3>Hack4Scaria — Airbus × Renault</h3>
+        <p>Hackathon organisé à Rochefort. Travail en équipe sur un défi technique industriel impliquant des partenaires comme Airbus et Renault.</p>
+        <a href="#realisations" class="project-link">Voir les réalisations →</a>
       </div>
     </div>
 
     <!-- CTF -->
-    <div style="
-      background:#1a1a1a;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 0 15px rgba(255,136,0,0.1);
-      transition:0.3s;
-    ">
-      <img src="https://picsum.photos/600/300?random=24" style="width:100%; height:180px; object-fit:cover;">
-      <div style="padding:20px;">
-        <h3 style="color:#ff8800;">CTF — (TryHackMe / Root‑Me)</h3>
-        <p style="color:#ccc;">
-          Écris ici ton résumé CTF : types de challenges, compétences développées, plateformes utilisées.
-        </p>
-        <a href="#" style="color:#ff8800; text-decoration:none; font-weight:bold;">Voir les CTF</a>
+    <div class="project-card">
+      <img src="https://picsum.photos/600/300?random=24" class="project-img" alt="CTF">
+      <div class="project-body">
+        <span class="project-tag">CTF · Fév 2026</span>
+        <h3>CTF CESI La Rochelle</h3>
+        <p>Participation au CTF organisé par le CESI de La Rochelle. Challenges réseau, web, stéganographie. Pratique aussi sur TryHackMe et Root-Me.</p>
+        <a href="#realisations" class="project-link">Voir les réalisations →</a>
       </div>
     </div>
 
   </div>
-
 </section>
 
+<hr class="divider">
 
 <!-- CONTACT -->
-<section id="contact">
-  <h2>Contact</h2>
-  <p>Email : ton-email</p>
-  <p>LinkedIn : ton-lien</p>
-  <p>GitHub : ton GitHub</p>
+<section id="contact" class="section">
+  <p class="section-label">05 / Me contacter</p>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <span class="contact-icon">📧</span>
+      <div class="contact-info">
+        <span>Email</span>
+        <a href="mailto:hartenbergeralois528@gmail.com">hartenbergeralois528@gmail.com</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">🔗</span>
+      <div class="contact-info">
+        <span>LinkedIn</span>
+        <a href="#">linkedin.com/in/ton-profil</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">💻</span>
+      <div class="contact-info">
+        <span>GitHub</span>
+        <a href="#">github.com/ton-github</a>
+      </div>
+    </div>
+  </div>
 </section>
 
+<footer style="text-align:center; padding:40px; color:var(--muted); font-size:12px; border-top:1px solid var(--border);">
+  © 2026 Aloïs Hartenberger · BTS SIO SISR · Lycée Maurice Merleau-Ponty
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.real-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
 </body>
 </html>
-

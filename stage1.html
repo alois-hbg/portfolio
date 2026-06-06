@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Stage 1 — MSI · Aloïs Hartenberger</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ff8800;
+      --orange-dim: rgba(255,136,0,0.12);
+      --orange-glow: rgba(255,136,0,0.25);
+      --bg: #0a0a0a;
+      --surface: #111;
+      --surface2: #161616;
+      --border: rgba(255,136,0,0.2);
+      --text: #e8e8e8;
+      --muted: #888;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(10,10,10,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Space Mono', monospace; color: var(--orange); font-size: 14px; letter-spacing: 2px; text-decoration: none; }
+    .nav-back {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--muted); text-decoration: none; font-size: 13px;
+      font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--orange); }
+    .nav-back span { font-size: 18px; line-height: 1; }
+
+    /* ── HERO STAGE ── */
+    .stage-hero {
+      min-height: 50vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 120px 40px 60px;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .stage-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 80% at 10% 50%, rgba(255,136,0,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 90% 20%, rgba(255,136,0,0.04) 0%, transparent 60%);
+    }
+    .hero-bg-text {
+      position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(80px, 15vw, 180px); font-weight: 700;
+      color: rgba(255,136,0,0.04); line-height: 1;
+      user-select: none; pointer-events: none; white-space: nowrap;
+    }
+    .stage-hero-inner { position: relative; z-index: 1; max-width: 1000px; margin: 0 auto; width: 100%; }
+    .stage-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--orange); border: 1px solid var(--border);
+      padding: 5px 14px; border-radius: 20px;
+      display: inline-block; margin-bottom: 20px;
+    }
+    .stage-hero h1 {
+      font-size: clamp(36px, 6vw, 72px); font-weight: 800; line-height: 1.05;
+      color: #fff; margin-bottom: 12px;
+    }
+    .stage-hero h1 em { color: var(--orange); font-style: normal; }
+    .stage-hero .subtitle {
+      font-size: 16px; color: var(--muted); max-width: 600px; line-height: 1.6;
+    }
+    .hero-meta {
+      display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap;
+    }
+    .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .hero-meta-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); }
+    .hero-meta-value { font-size: 14px; font-weight: 600; color: #fff; }
+
+    /* ── TIMELINE ── */
+    .container { max-width: 1000px; margin: 0 auto; padding: 80px 40px; }
+
+    .timeline-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 64px;
+    }
+    .timeline-header .label {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange);
+    }
+    .timeline-header .line {
+      flex: 1; height: 1px; background: var(--border);
+    }
+
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 28px; top: 0; bottom: 0;
+      width: 1px; background: linear-gradient(to bottom, var(--orange) 0%, rgba(255,136,0,0.1) 100%);
+    }
+
+    .week-block {
+      position: relative; padding-left: 80px; margin-bottom: 56px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp .5s ease forwards;
+    }
+    .week-block:nth-child(1) { animation-delay: .1s; }
+    .week-block:nth-child(2) { animation-delay: .2s; }
+    .week-block:nth-child(3) { animation-delay: .3s; }
+    .week-block:nth-child(4) { animation-delay: .4s; }
+    .week-block:nth-child(5) { animation-delay: .5s; }
+    .week-block:nth-child(6) { animation-delay: .6s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .week-dot {
+      position: absolute; left: 18px; top: 22px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s;
+    }
+    .week-dot::after {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange);
+    }
+    .week-block.inactive .week-dot {
+      border-color: rgba(255,136,0,0.3);
+    }
+    .week-block.inactive .week-dot::after {
+      background: rgba(255,136,0,0.3);
+    }
+
+    .week-num {
+      position: absolute; left: -4px; top: 46px;
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      color: var(--orange); opacity: .6; letter-spacing: 1px;
+      writing-mode: vertical-rl; text-orientation: mixed;
+    }
+
+    .week-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .week-card:hover {
+      border-color: rgba(255,136,0,0.5);
+      box-shadow: 0 0 32px rgba(255,136,0,0.07);
+    }
+    .week-block.inactive .week-card {
+      border-color: rgba(255,255,255,0.06);
+      opacity: .6;
+    }
+
+    .week-card-header {
+      padding: 20px 24px 16px;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+      border-bottom: 1px solid rgba(255,136,0,0.1);
+      background: linear-gradient(135deg, rgba(255,136,0,0.06) 0%, transparent 60%);
+    }
+    .week-card-header-left { flex: 1; }
+    .week-label {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 6px; display: block;
+    }
+    .week-title {
+      font-size: 20px; font-weight: 800; color: #fff;
+    }
+    .week-block.inactive .week-title { color: var(--muted); }
+    .week-period-badge {
+      flex-shrink: 0;
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      color: var(--muted); border: 1px solid rgba(255,255,255,0.08);
+      padding: 4px 12px; border-radius: 20px; white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    .week-card-body { padding: 20px 24px 24px; }
+
+    .week-desc {
+      font-size: 14px; color: #bbb; line-height: 1.75;
+      margin-bottom: 20px;
+    }
+    .week-block.inactive .week-desc { color: var(--muted); }
+
+    .comp-section-title {
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .comp-list { display: flex; flex-direction: column; gap: 6px; }
+    .comp-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: #ccc; line-height: 1.4;
+    }
+    .comp-pill::before {
+      content: '';
+      flex-shrink: 0;
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .no-comp {
+      font-size: 13px; color: var(--muted); font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 40px;
+      color: var(--muted); font-size: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 60px 20px; }
+      .stage-hero { padding: 100px 20px 50px; }
+      nav { padding: 0 20px; }
+      .timeline::before { left: 16px; }
+      .week-block { padding-left: 52px; }
+      .week-dot { left: 6px; }
+      .week-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">AH/</a>
+  <a href="index.html" class="nav-back"><span>←</span> Retour au portfolio</a>
+</nav>
+
+<!-- HERO -->
+<section class="stage-hero">
+  <div class="hero-bg-text">MSI</div>
+  <div class="stage-hero-inner">
+    <span class="stage-tag">Stage 1 · BTS SIO SISR · 2025</span>
+    <h1>Stage chez <em>MSI</em></h1>
+    <p class="subtitle">Infrastructure réseau, cybersécurité et interventions terrain en Nouvelle-Aquitaine.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Période</span>
+        <span class="hero-meta-value">Mai — Juin 2025</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Durée</span>
+        <span class="hero-meta-value">6 semaines</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Secteur</span>
+        <span class="hero-meta-value">Infrastructure & Réseaux</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Lieu</span>
+        <span class="hero-meta-value">Bordeaux, Nouvelle-Aquitaine</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<div class="container">
+
+  <div class="timeline-header">
+    <span class="label">Déroulé semaine par semaine</span>
+    <div class="line"></div>
+  </div>
+
+  <div class="timeline">
+
+    <!-- S1 -->
+    <div class="week-block">
+      <div class="week-dot"></div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-card-header-left">
+            <span class="week-label">Semaine 1</span>
+            <div class="week-title">Infrastructure</div>
+          </div>
+          <div class="week-period-badge">19/05 → 25/05/25</div>
+        </div>
+        <div class="week-card-body">
+          <p class="week-desc">
+            Pendant cette semaine j'ai été au côté de l'équipe infrastructure et réseau. J'ai interrogé chaque personne de la section pour savoir comment ils en étaient arrivés là. J'ai effectué un premier déplacement au Pôle Emploi de Cenon où j'ai assisté au changement d'un équipement réseau.
+          </p>
+          <p class="comp-section-title">Compétences mobilisées</p>
+          <div class="comp-list">
+            <span class="comp-pill">Mettre à disposition des utilisateurs un service informatique</span>
+            <span class="comp-pill">Travailler en mode projet</span>
+            <span class="comp-pill">Répondre aux incidents et aux demandes d'assistance et d'évolution</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S2 -->
+    <div class="week-block">
+      <div class="week-dot"></div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-card-header-left">
+            <span class="week-label">Semaine 2</span>
+            <div class="week-title">Cybersécurité</div>
+          </div>
+          <div class="week-period-badge">26/05 → 30/05/25</div>
+        </div>
+        <div class="week-card-body">
+          <p class="week-desc">
+            Pendant cette courte semaine j'ai découvert la partie cybersécurité de l'entreprise. Comme pour l'infra, j'ai interrogé les membres présents. J'ai également échangé longuement avec les différents alternants de l'entreprise pour comprendre leurs parcours et missions.
+          </p>
+          <p class="comp-section-title">Compétences mobilisées</p>
+          <div class="comp-list">
+            <span class="comp-pill">Organiser son développement professionnel</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3 -->
+    <div class="week-block">
+      <div class="week-dot"></div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-card-header-left">
+            <span class="week-label">Semaine 3</span>
+            <div class="week-title">Infrastructure Réseaux — Terrain</div>
+          </div>
+          <div class="week-period-badge">02/06 → 06/06/25</div>
+        </div>
+        <div class="week-card-body">
+          <p class="week-desc">
+            Durant cette semaine je suis parti en intervention chez un client avec un salarié de l'entreprise : <strong>ID Logistiques</strong> (entrepôts de stockage Carrefour) à Cestas, Nouvelle-Aquitaine. Nous sommes intervenus dans toutes les baies de brassage sur 2 entrepôts pour remplacer des équipements réseaux (switches) décommissionnés par du matériel neuf.
+          </p>
+          <p class="comp-section-title">Compétences mobilisées</p>
+          <div class="comp-list">
+            <span class="comp-pill">Organiser son développement professionnel</span>
+            <span class="comp-pill">Mettre à disposition des utilisateurs un service informatique</span>
+            <span class="comp-pill">Travailler en mode projet</span>
+            <span class="comp-pill">Répondre aux incidents et aux demandes d'assistance et d'évolution</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S4 -->
+    <div class="week-block inactive">
+      <div class="week-dot"></div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-card-header-left">
+            <span class="week-label">Semaine 4</span>
+            <div class="week-title">Semaine sans réalisation</div>
+          </div>
+          <div class="week-period-badge">09/06 → 13/06/25</div>
+        </div>
+        <div class="week-card-body">
+          <p class="no-comp">Aucune réalisation notable à documenter pour cette semaine.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- S5 -->
+    <div class="week-block">
+      <div class="week-dot"></div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-card-header-left">
+            <span class="week-label">Semaine 5</span>
+            <div class="week-title">Réunion Cyber Campus Bordeaux</div>
+          </div>
+          <div class="week-period-badge">16/06 → 20/06/25</div>
+        </div>
+        <div class="week-card-body">
+          <p class="week-desc">
+            Pendant cette semaine j'ai été convié, avec mon maître de stage, à une réunion au <strong>Cyber Campus de Bordeaux</strong> avec le patron d'Aruba France. La réunion portait sur l'annonce du lancement de nouveaux équipements réseaux Fortinet ainsi qu'une présentation du <strong>WiFi 7</strong>.
+          </p>
+          <p class="comp-section-title">Compétences mobilisées</p>
+          <div class="comp-list">
+            <span class="comp-pill">Organiser son développement professionnel</span>
+            <span class="comp-pill">Mettre à disposition des utilisateurs un service informatique</span>
+            <span class="comp-pill">Développer la présence en ligne de l'organisation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S6 -->
+    <div class="week-block">
+      <div class="week-dot"></div>
+      <div class="week-card">
+        <div class="week-card-header">
+          <div class="week-card-header-left">
+            <span class="week-label">Semaine 6</span>
+            <div class="week-title">Réseau & Certification</div>
+          </div>
+          <div class="week-period-badge">23/06 → 30/06/25</div>
+        </div>
+        <div class="week-card-body">
+          <p class="week-desc">
+            La dernière semaine a été principalement axée sur de la <strong>certification personnelle</strong>, ainsi qu'une petite intervention au Pôle Emploi de Bègles (Bordeaux) pour le remplacement d'un switch en très mauvais état.
+          </p>
+          <p class="comp-section-title">Compétences mobilisées</p>
+          <div class="comp-list">
+            <span class="comp-pill">Organiser son développement professionnel</span>
+            <span class="comp-pill">Développer la présence en ligne de l'organisation</span>
+            <span class="comp-pill">Répondre aux incidents et aux demandes d'assistance et d'évolution</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /timeline -->
+</div><!-- /container -->
+
+<footer>
+  © 2026 Aloïs Hartenberger · BTS SIO SISR · Lycée Maurice Merleau-Ponty
+</footer>
+
+</body>
+</html>

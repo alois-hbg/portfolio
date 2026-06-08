@@ -223,6 +223,32 @@
       font-size: 13px; color: var(--muted); font-style: italic;
     }
 
+    /* photos */
+    .photo-duo {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 20px; margin-bottom: 20px;
+    }
+    .week-photo {
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(255,136,0,0.15);
+    }
+    .week-photo img {
+      display: block; width: 100%; height: 200px;
+      object-fit: cover; filter: brightness(.88);
+      transition: filter .3s;
+    }
+    .week-photo:hover img { filter: brightness(1); }
+    .week-photo-caption {
+      padding: 8px 10px;
+      background: var(--surface2);
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      color: rgba(255,136,0,0.6); letter-spacing: 1px; text-transform: uppercase;
+      border-top: 1px solid rgba(255,136,0,0.1);
+    }
+    @media (max-width: 600px) {
+      .photo-duo { grid-template-columns: 1fr; }
+    }
+
     /* ── FOOTER ── */
     footer {
       text-align: center; padding: 40px;
@@ -250,10 +276,10 @@
 
 <!-- HERO -->
 <section class="stage-hero">
-  <div class="hero-bg-text">MSI</div>
+  <div class="hero-bg-text">AXIANS</div>
   <div class="stage-hero-inner">
     <span class="stage-tag">Stage 1 · BTS SIO SISR · 2025</span>
-    <h1>Stage chez <em>MSI</em></h1>
+    <h1>Stage chez <em>Axians</em></h1>
     <p class="subtitle">Infrastructure réseau, cybersécurité et interventions terrain en Nouvelle-Aquitaine.</p>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -349,6 +375,16 @@
           <p class="week-desc">
             Durant cette semaine je suis parti en intervention chez un client avec un salarié de l'entreprise : <strong>ID Logistiques</strong> (entrepôts de stockage Carrefour) à Cestas, Nouvelle-Aquitaine. Nous sommes intervenus dans toutes les baies de brassage sur 2 entrepôts pour remplacer des équipements réseaux (switches) décommissionnés par du matériel neuf.
           </p>
+          <div class="photo-duo">
+            <div class="week-photo">
+              <img src="IMG_2082.jpeg" alt="Baie de brassage entrepôt Carrefour — avant intervention">
+              <div class="week-photo-caption">Baie de brassage — avant remplacement des switches</div>
+            </div>
+            <div class="week-photo">
+              <img src="IMG_2148.jpeg" alt="Baie de brassage en cours d'intervention">
+              <div class="week-photo-caption">En cours d'intervention — câblage & nouveaux équipements</div>
+            </div>
+          </div>
           <p class="comp-section-title">Compétences mobilisées</p>
           <div class="comp-list">
             <span class="comp-pill">Organiser son développement professionnel</span>

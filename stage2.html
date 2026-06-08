@@ -7,8 +7,6 @@
   <style>
     :root {
       --orange: #ff8800;
-      --orange-dim: rgba(255,136,0,0.12);
-      --orange-glow: rgba(255,136,0,0.25);
       --bg: #0a0a0a;
       --surface: #111;
       --surface2: #161616;
@@ -16,9 +14,7 @@
       --text: #e8e8e8;
       --muted: #888;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Syne', sans-serif;
       background: var(--bg);
@@ -27,27 +23,23 @@
       overflow-x: hidden;
     }
 
-    /* ── NAVBAR ── */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
       background: rgba(10,10,10,0.9);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
-      padding: 0 40px;
-      height: 60px;
+      padding: 0 40px; height: 60px;
       display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { font-family: 'Space Mono', monospace; color: var(--orange); font-size: 14px; letter-spacing: 2px; text-decoration: none; }
     .nav-back {
       display: flex; align-items: center; gap: 8px;
       color: var(--muted); text-decoration: none; font-size: 13px;
-      font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-      transition: color .2s;
+      font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color .2s;
     }
     .nav-back:hover { color: var(--orange); }
-    .nav-back span { font-size: 18px; line-height: 1; }
 
-    /* ── HERO STAGE ── */
+    /* HERO */
     .stage-hero {
       min-height: 50vh;
       display: flex; flex-direction: column; justify-content: flex-end;
@@ -82,17 +74,13 @@
       color: #fff; margin-bottom: 12px;
     }
     .stage-hero h1 em { color: var(--orange); font-style: normal; }
-    .stage-hero .subtitle {
-      font-size: 16px; color: var(--muted); max-width: 620px; line-height: 1.6;
-    }
-    .hero-meta {
-      display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap;
-    }
+    .stage-hero .subtitle { font-size: 16px; color: var(--muted); max-width: 620px; line-height: 1.6; }
+    .hero-meta { display: flex; gap: 32px; margin-top: 32px; flex-wrap: wrap; }
     .hero-meta-item { display: flex; flex-direction: column; gap: 4px; }
     .hero-meta-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--orange); }
     .hero-meta-value { font-size: 14px; font-weight: 600; color: #fff; }
 
-    /* ── TOOLS STRIP ── */
+    /* TOOLS STRIP */
     .tools-strip {
       max-width: 1000px; margin: 0 auto;
       padding: 40px 40px 0;
@@ -106,7 +94,7 @@
       background: rgba(255,136,0,0.05);
     }
 
-    /* ── TIMELINE ── */
+    /* TIMELINE */
     .container { max-width: 1000px; margin: 0 auto; padding: 60px 40px 80px; }
 
     .timeline-header {
@@ -115,6 +103,7 @@
     .timeline-header .label {
       font-family: 'Space Mono', monospace;
       font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--orange);
+      white-space: nowrap;
     }
     .timeline-header .line { flex: 1; height: 1px; background: var(--border); }
 
@@ -137,9 +126,7 @@
     .week-block:nth-child(5) { animation-delay: .5s; }
     .week-block:nth-child(6) { animation-delay: .6s; }
 
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
     .week-dot {
       position: absolute; left: 18px; top: 22px;
@@ -181,19 +168,22 @@
       flex-shrink: 0;
       font-family: 'Space Mono', monospace; font-size: 10px;
       color: var(--muted); border: 1px solid rgba(255,255,255,0.08);
-      padding: 4px 12px; border-radius: 20px; white-space: nowrap;
-      margin-top: 4px;
+      padding: 4px 12px; border-radius: 20px; white-space: nowrap; margin-top: 4px;
     }
 
     .week-card-body { padding: 20px 24px 24px; }
 
-    .week-desc {
-      font-size: 14px; color: #bbb; line-height: 1.75;
-      margin-bottom: 20px;
+    /* layout avec photo */
+    .body-with-photo {
+      display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start;
     }
+    .body-with-photo-2col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;
+    }
+    .body-text {}
 
-    /* outils inline dans la description */
-    .week-desc .tool-inline {
+    .week-desc { font-size: 14px; color: #bbb; line-height: 1.75; margin-bottom: 20px; }
+    .tool-inline {
       font-family: 'Space Mono', monospace; font-size: 12px;
       color: var(--orange); background: rgba(255,136,0,0.08);
       border: 1px solid rgba(255,136,0,0.2);
@@ -211,26 +201,55 @@
       font-size: 12px; color: #ccc; line-height: 1.4;
     }
     .comp-pill::before {
-      content: '';
+      content: ''; flex-shrink: 0;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--orange);
+    }
+
+    /* photos dans les cartes */
+    .week-photo {
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(255,136,0,0.15);
       flex-shrink: 0;
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--orange);
     }
-
-    footer {
-      text-align: center; padding: 40px;
-      color: var(--muted); font-size: 12px;
-      border-top: 1px solid var(--border);
+    .week-photo img {
+      display: block; width: 100%; height: 100%;
+      object-fit: cover; filter: brightness(.9);
+      transition: filter .3s;
     }
+    .week-photo:hover img { filter: brightness(1); }
+    .week-photo-caption {
+      padding: 8px 10px;
+      background: var(--surface2);
+      font-family: 'Space Mono', monospace; font-size: 9px;
+      color: rgba(255,136,0,0.6); letter-spacing: 1px; text-transform: uppercase;
+      border-top: 1px solid rgba(255,136,0,0.1);
+    }
+    .photo-sm { width: 220px; }
+    .photo-sm img { height: 155px; }
+    .photo-lg { width: 100%; }
+    .photo-lg img { height: 200px; }
 
-    @media (max-width: 600px) {
+    /* galerie 2 photos côte à côte */
+    .photo-duo {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+      margin-top: 20px;
+    }
+    .photo-duo .week-photo img { height: 160px; }
+
+    footer { text-align: center; padding: 40px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--border); }
+
+    @media (max-width: 700px) {
+      nav { padding: 0 20px; }
       .container { padding: 60px 20px; }
       .stage-hero { padding: 100px 20px 50px; }
-      nav { padding: 0 20px; }
       .tools-strip { padding: 32px 20px 0; }
       .timeline::before { left: 16px; }
       .week-block { padding-left: 52px; }
       .week-dot { left: 6px; }
+      .body-with-photo { grid-template-columns: 1fr; }
+      .body-with-photo-2col { grid-template-columns: 1fr; }
+      .photo-sm { width: 100%; }
+      .photo-duo { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -238,10 +257,9 @@
 
 <nav>
   <a href="index.html" class="nav-logo">AH/</a>
-  <a href="index.html" class="nav-back"><span>←</span> Retour au portfolio</a>
+  <a href="index.html" class="nav-back">← Retour au portfolio</a>
 </nav>
 
-<!-- HERO -->
 <section class="stage-hero">
   <div class="hero-bg-text">ARCHIDATA</div>
   <div class="stage-hero-inner">
@@ -269,7 +287,6 @@
   </div>
 </section>
 
-<!-- TOOLS STRIP -->
 <div class="tools-strip">
   <span class="tool-badge">Wazuh</span>
   <span class="tool-badge">OWASP ZAP</span>
@@ -282,9 +299,7 @@
   <span class="tool-badge">Pentest</span>
 </div>
 
-<!-- TIMELINE -->
 <div class="container">
-
   <div class="timeline-header">
     <span class="label">Déroulé semaine par semaine</span>
     <div class="line"></div>
@@ -304,13 +319,27 @@
           <div class="week-period-badge">23/02 → 27/02/26</div>
         </div>
         <div class="week-card-body">
-          <p class="week-desc">
-            Découverte de l'entreprise Archidata et de son fonctionnement interne. Prise en main de l'outil de gestion de projet <span class="tool-inline">ClickUp</span> pour suivre les tâches et renseigner les vulnérabilités. Consultation des documents internes et compréhension de l'architecture réseau via un diagramme réseau. Analyse des ressources techniques mises à disposition.
-          </p>
-          <p class="comp-section-title">Compétences mobilisées</p>
-          <div class="comp-list">
-            <span class="comp-pill">Organiser son développement professionnel</span>
-            <span class="comp-pill">Gérer le patrimoine informatique</span>
+          <div class="body-with-photo">
+            <div class="body-text">
+              <p class="week-desc">
+                Découverte de l'entreprise Archidata et de son fonctionnement interne. Prise en main de l'outil de gestion de projet <span class="tool-inline">ClickUp</span> pour suivre les tâches et renseigner les vulnérabilités. Consultation des documents internes et compréhension de l'architecture réseau via un diagramme réseau. Analyse des ressources techniques mises à disposition.
+              </p>
+              <p class="comp-section-title">Compétences mobilisées</p>
+              <div class="comp-list">
+                <span class="comp-pill">Organiser son développement professionnel</span>
+                <span class="comp-pill">Gérer le patrimoine informatique</span>
+              </div>
+            </div>
+            <!-- Diagramme réseau VLAN -->
+            <div class="week-photo photo-sm">
+              <img src="IMG_3337.jpeg" alt="Diagramme réseau VLAN Archidata">
+              <div class="week-photo-caption">Architecture réseau VLAN — Archidata</div>
+            </div>
+          </div>
+          <!-- CVE tool -->
+          <div class="week-photo photo-lg" style="margin-top:18px;">
+            <img src="IMG_3313.jpeg" alt="Outil gestion CVE ClickUp">
+            <div class="week-photo-caption">Suivi des CVE et vulnérabilités dans l'outil de gestion interne</div>
           </div>
         </div>
       </div>
@@ -331,6 +360,11 @@
           <p class="week-desc">
             Création et mise à jour d'un fichier Excel regroupant les termes techniques utilisés dans l'entreprise. Travail de recherche pour comprendre les concepts liés aux systèmes et réseaux. Participation à l'organisation des informations internes.
           </p>
+          <!-- Rapport Excel Wazuh -->
+          <div class="week-photo photo-lg" style="margin-bottom:20px;">
+            <img src="IMG_3315.jpeg" alt="Rapport vulnérabilités Excel Wazuh">
+            <div class="week-photo-caption">Rapport global vulnérabilités Wazuh — fichier Excel de structuration</div>
+          </div>
           <p class="comp-section-title">Compétences mobilisées</p>
           <div class="comp-list">
             <span class="comp-pill">Organiser son développement professionnel</span>
@@ -353,13 +387,26 @@
         </div>
         <div class="week-card-body">
           <p class="week-desc">
-            Utilisation d'outils comme <span class="tool-inline">OWASP ZAP</span>, <span class="tool-inline">SonarQube</span> et <span class="tool-inline">VirusTotal</span> pour analyser la sécurité des applications et identifier des vulnérabilités. Début de la préparation d'une campagne de test de phishing : réflexion sur les scénarios d'attaque, conception de messages frauduleux et définition des objectifs du test (sensibilisation des utilisateurs et évaluation des comportements).
+            Utilisation d'outils comme <span class="tool-inline">OWASP ZAP</span>, <span class="tool-inline">SonarQube</span> et <span class="tool-inline">VirusTotal</span> pour analyser la sécurité des applications et identifier des vulnérabilités. Début de la préparation d'une campagne de test de phishing : réflexion sur les scénarios d'attaque, conception de messages frauduleux et définition des objectifs du test.
           </p>
-          <p class="comp-section-title">Compétences mobilisées</p>
-          <div class="comp-list">
-            <span class="comp-pill">Travailler en mode projet</span>
-            <span class="comp-pill">Répondre aux incidents et aux demandes d'assistance et d'évolution</span>
-            <span class="comp-pill">Gérer le patrimoine informatique</span>
+          <!-- Duo de photos VirusTotal -->
+          <div class="photo-duo">
+            <div class="week-photo">
+              <img src="IMG_3434.jpeg" alt="VirusTotal analyse domaine Archidata">
+              <div class="week-photo-caption">VirusTotal — analyse domaine snclgc.archidata.com · 0/95 détections</div>
+            </div>
+            <div class="week-photo">
+              <img src="IMG_3435.jpeg" alt="Excel recap domaines VirusTotal">
+              <div class="week-photo-caption">Récap Excel — scores VirusTotal sur les domaines Archidata</div>
+            </div>
+          </div>
+          <div style="margin-top:20px;">
+            <p class="comp-section-title">Compétences mobilisées</p>
+            <div class="comp-list">
+              <span class="comp-pill">Travailler en mode projet</span>
+              <span class="comp-pill">Répondre aux incidents et aux demandes d'assistance et d'évolution</span>
+              <span class="comp-pill">Gérer le patrimoine informatique</span>
+            </div>
           </div>
         </div>
       </div>
@@ -440,8 +487,8 @@
       </div>
     </div>
 
-  </div><!-- /timeline -->
-</div><!-- /container -->
+  </div>
+</div>
 
 <footer>
   © 2026 Aloïs Hartenberger · BTS SIO SISR · Lycée Maurice Merleau-Ponty
